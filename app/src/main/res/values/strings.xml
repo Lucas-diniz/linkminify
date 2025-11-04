@@ -1,3 +1,16 @@
 <resources>
+    <!-- LINK ERRORS MESSAGE -->
     <string name="app_name">LinkMinify</string>
+    <string name="url_is_empty">A URL está vazia</string>
+    <string name="invalid_scheme">Esquema inválido — use http:// ou https://</string>
+    <string name="empty_host">Host ausente na URL</string>
+    <string name="host_contains_spaces">O host contém espaços</string>
+    <string name="malformed">URL malformada</string>
+
+    <!-- NETWORK ERRORS MESSAGE -->
+    <string name="error_no_internet">Sem conexão com a internet. Verifique sua rede e tente novamente.</string>
+    <string name="error_server">Erro no servidor. Por favor, tente novamente mais tarde.</string>
+    <string name="error_timeout">Tempo de conexão esgotado. Verifique sua conexão e tente novamente.</string>
+    <string name="error_not_found">Recurso não encontrado. Verifique o link e tente novamente.</string>
+    <string name="error_unknown">Erro desconhecido. Tente novamente mais tarde ou entre em contato com o suporte.</string>
 </resources>

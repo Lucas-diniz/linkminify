@@ -1,10 +1,10 @@
 package io.link.minify.domain.error
 
 
-enum class LinkError(val message: String) {
-    EMPTY("Empty"),
-    INVALID_SCHEME("InvalidScheme"),
-    EMPTY_HOST("EmptyHost"),
-    HOST_CONTAINS_SPACES("HostContainsSpaces"),
-    MALFORMED("Malformed")
+sealed class LinkError {
+    data object Empty : LinkError()
+    data object InvalidScheme : LinkError()
+    data object EmptyHost : LinkError()
+    data object HostContainsSpaces : LinkError()
+    data object Malformed : LinkError()
 }
