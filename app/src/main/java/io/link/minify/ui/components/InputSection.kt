@@ -30,45 +30,10 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import io.link.minify.core.extensions.isValidUrl
+import io.link.minify.isValidUrl
 import io.link.minify.ui.theme.LinkMinifyTheme
 import io.link.minify.ui.toMessageRes
 
-/**
- * InputLink Component
- *
- * A stateful composable that provides URL input functionality with built-in validation,
- * following Clean Architecture and SOLID principles. This component manages its own input
- * state internally and validates URLs in real-time using the [isValidUrl] extension function.
- *
- * ## Features
- * - Real-time URL validation with visual feedback (error icon and supporting text)
- * - Disabled state during loading operations to prevent duplicate submissions
- * - URI-optimized keyboard type for better user experience
- * - Accessibility support with content descriptions and semantic properties
- * - Test tags for UI testing integration
- *
- * ## Usage Example
- * ```kotlin
- * InputLink(
- *     onShortenClick = { url ->
- *         viewModel.shortenUrl(url)
- *     },
- *     isLoading = uiState.isLoading
- * )
- * ```
- *
- * @param onShortenClick Callback invoked when the user clicks the "Shorten Link" button.
- *                       Receives the validated URL string as a parameter. This callback is
- *                       only triggered when the URL is valid and loading is false.
- * @param isLoading Boolean flag indicating whether a URL shortening operation is in progress.
- *                  When true, both the input field and button are disabled to prevent
- *                  duplicate submissions and the button displays "Shortening..." text.
- * @param modifier Optional [Modifier] for customizing the layout and appearance of the component.
- *                 Applied to the root Column container. Defaults to [Modifier] (no modifications).
- *
- * @see [isValidUrl] for URL validation logic
- */
 @Composable
 fun InputLink(
     onShortenClick: (String) -> Unit,
@@ -150,11 +115,6 @@ fun InputLink(
     }
 }
 
-/**
- * Stateless version of InputLink for preview purposes.
- * This allows us to demonstrate different states without managing internal state.
- * This component is private and only used for previews.
- */
 @Composable
 private fun InputLinkStateless(
     urlInput: String,
@@ -237,17 +197,7 @@ private fun InputLinkStateless(
     }
 }
 
-// =================================================================================================
-// Preview Functions - Light Theme States
-// =================================================================================================
-
-/**
- * Preview showing the initial empty state of the input section.
- * Demonstrates the component when first loaded with no user interaction.
- * - Empty text field with placeholder
- * - Button is disabled (no URL entered)
- * - Light theme
- */
+// Preview Functions
 @Preview(
     name = "Empty State",
     group = "Input Section - Light Theme",
@@ -265,14 +215,6 @@ private fun InputSectionEmptyPreview() {
     }
 }
 
-/**
- * Preview showing the component with a valid URL entered.
- * Demonstrates successful validation state.
- * - Valid URL: https://example.com/very/long/url/path
- * - Button is enabled and ready to submit
- * - No error indicators visible
- * - Light theme
- */
 @Preview(
     name = "Valid URL - Ready",
     group = "Input Section - Light Theme",
@@ -290,15 +232,6 @@ private fun InputSectionValidUrlPreview() {
     }
 }
 
-/**
- * Preview showing the component with an invalid URL entered.
- * Demonstrates error validation state with visual feedback.
- * - Invalid URL: not-a-valid-url
- * - Warning icon displayed in trailing position
- * - Error text shown below input field
- * - Button is disabled (cannot submit invalid URL)
- * - Light theme
- */
 @Preview(
     name = "Invalid URL - Error",
     group = "Input Section - Light Theme",
@@ -316,15 +249,6 @@ private fun InputSectionInvalidUrlPreview() {
     }
 }
 
-/**
- * Preview showing the component during URL shortening operation.
- * Demonstrates the loading state behavior and disabled interactions.
- * - Valid URL entered
- * - TextField is disabled (prevents editing during operation)
- * - Button shows "Shortening..." text
- * - Button is disabled (prevents duplicate submissions)
- * - Light theme
- */
 @Preview(
     name = "Loading State",
     group = "Input Section - Light Theme",
@@ -342,15 +266,6 @@ private fun InputSectionLoadingPreview() {
     }
 }
 
-/**
- * Preview showing partial URL entry with validation error.
- * Demonstrates real-time validation during user input.
- * - Incomplete URL: http:// (no domain)
- * - Warning icon displayed
- * - Error message shown (invalid format)
- * - Button is disabled
- * - Light theme
- */
 @Preview(
     name = "Partial URL - Error",
     group = "Input Section - Light Theme",
@@ -368,14 +283,6 @@ private fun InputSectionPartialUrlPreview() {
     }
 }
 
-/**
- * Preview showing the component with a long, complex valid URL.
- * Demonstrates text overflow handling and layout with lengthy URLs.
- * - Very long URL with multiple path segments and query parameters
- * - Button is enabled (valid URL)
- * - Single-line text field behavior (horizontal scrolling)
- * - Light theme
- */
 @Preview(
     name = "Long Valid URL",
     group = "Input Section - Light Theme",
@@ -389,112 +296,6 @@ private fun InputSectionLongUrlPreview() {
             onUrlChange = {},
             onShortenClick = {},
             isLoading = false
-        )
-    }
-}
-
-// =================================================================================================
-// Preview Functions - Dark Theme States
-// =================================================================================================
-
-/**
- * Preview showing empty state in dark theme.
- * Verifies proper contrast, colors, and readability in dark mode.
- * - Empty input field
- * - Disabled button
- * - Dark theme colors applied
- */
-@Preview(
-    name = "Empty State - Dark",
-    group = "Input Section - Dark Theme",
-    showBackground = true,
-    backgroundColor = 0xFF121212
-)
-@Composable
-private fun InputSectionEmptyDarkPreview() {
-    LinkMinifyTheme(darkTheme = true) {
-        InputLinkStateless(
-            urlInput = "",
-            onUrlChange = {},
-            onShortenClick = {},
-            isLoading = false
-        )
-    }
-}
-
-/**
- * Preview showing valid URL state in dark theme.
- * Verifies button and text field appearance with proper contrast in dark mode.
- * - Valid URL entered
- * - Enabled button state
- * - Dark theme colors applied
- */
-@Preview(
-    name = "Valid URL - Dark",
-    group = "Input Section - Dark Theme",
-    showBackground = true,
-    backgroundColor = 0xFF121212
-)
-@Composable
-private fun InputSectionValidUrlDarkPreview() {
-    LinkMinifyTheme(darkTheme = true) {
-        InputLinkStateless(
-            urlInput = "https://example.com/very/long/url/path",
-            onUrlChange = {},
-            onShortenClick = {},
-            isLoading = false
-        )
-    }
-}
-
-/**
- * Preview showing error state in dark theme.
- * Verifies error colors have sufficient contrast and are accessible in dark mode.
- * - Invalid URL with error state
- * - Warning icon visible
- * - Error text with proper dark theme error color
- * - Disabled button
- */
-@Preview(
-    name = "Invalid URL - Dark",
-    group = "Input Section - Dark Theme",
-    showBackground = true,
-    backgroundColor = 0xFF121212
-)
-@Composable
-private fun InputSectionInvalidUrlDarkPreview() {
-    LinkMinifyTheme(darkTheme = true) {
-        InputLinkStateless(
-            urlInput = "not-a-valid-url",
-            onUrlChange = {},
-            onShortenClick = {},
-            isLoading = false
-        )
-    }
-}
-
-/**
- * Preview showing loading state in dark theme.
- * Verifies disabled state appearance and button text in dark mode.
- * - Loading state active
- * - Disabled input field
- * - Button shows "Shortening..." text
- * - Dark theme colors applied
- */
-@Preview(
-    name = "Loading - Dark",
-    group = "Input Section - Dark Theme",
-    showBackground = true,
-    backgroundColor = 0xFF121212
-)
-@Composable
-private fun InputSectionLoadingDarkPreview() {
-    LinkMinifyTheme(darkTheme = true) {
-        InputLinkStateless(
-            urlInput = "https://example.com/long-url",
-            onUrlChange = {},
-            onShortenClick = {},
-            isLoading = true
         )
     }
 }

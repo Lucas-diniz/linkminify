@@ -19,23 +19,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.link.minify.ui.theme.LinkMinifyTheme
 
-/**
- * EmptyState Component
- *
- * A reusable composable that displays an empty state UI following the Single Responsibility Principle.
- * This component is responsible solely for displaying a message when there are no items to show.
- *
- * SOLID Principles Applied:
- * - Single Responsibility: Handles only the display of empty state
- * - Open/Closed: Extensible through parameters, closed for modification
- * - Liskov Substitution: Can be substituted anywhere an empty state display is needed
- * - Interface Segregation: Accepts only the parameters it needs
- * - Dependency Inversion: Depends on abstraction (display text), not concrete implementations
- *
- * @param title The main title text to display
- * @param subtitle The subtitle or description text to display
- * @param modifier Optional modifier for customization
- */
 @Composable
 fun EmptyState(
     title: String,
@@ -73,7 +56,6 @@ fun EmptyState(
 }
 
 // Preview Functions
-
 @Preview(
     name = "Empty State - Default",
     showBackground = true,
