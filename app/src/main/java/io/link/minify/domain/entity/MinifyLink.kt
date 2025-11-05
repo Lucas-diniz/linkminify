@@ -1,8 +1,11 @@
 package io.link.minify.domain.entity
 
+import java.util.UUID
+
 data class MinifyLink(
-    val link: Link,
+    val id: String = UUID.randomUUID().toString(),
+    val url: String,
     val alias: String,
     val shortUrl: String,
-    val clickCount: Int = 0
+    val timestamp: Long = System.currentTimeMillis(),
 )

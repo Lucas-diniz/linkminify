@@ -1,6 +1,6 @@
 package io.link.minify.domain.error
 
-sealed class NetworkError {
+sealed class NetworkError : MinifyError {
     data object NetworkUnavailable : NetworkError()
     data object ServerError : NetworkError()
     data object Timeout : NetworkError()

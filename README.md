@@ -47,12 +47,15 @@ Este projeto utiliza **MVVM + Clean Architecture** seguindo as recomendações d
 │   └── mapper (UI Models)
 ├── 📂 domain
 │   ├── usecase (Use Cases)
-│   ├── model (Domain models)
-│   └── repository (Repository interface)
+│   ├── entiry (Domain models)
+│   ├── repository (Repository interface)
+│   └── error (Custom exceptions)
 └── 📂 data
     ├── repository (Repository implementation)
-    ├── remote (Retrofit service)
-    └── dto (API models)
+    ├── source (Retrofit service)
+    │     └── dto (API models)
+    └── mapper (UI Models)
+
 ```
 
 ## 🛠️ Tech Stack
@@ -73,3 +76,23 @@ Este projeto utiliza **MVVM + Clean Architecture** seguindo as recomendações d
 - ❗ Código organizado sem code smells
 - ❗ Lint warnings zerados
 
+## Trade-offs de Arquitetura
+
+### Armazenamento do URL Original
+
+**Opção 1: Guardar apenas alias + shortUrl**
+✅ Economia de memória (URLs podem ser muito longos)  
+✅ Usa endpoint GET para buscar original sob demanda  
+❌ Latência ao clicar (chamada de rede adicional)  
+❌ Permite URLs duplicadas
+
+**Opção 2: Guardar alias + shortUrl + originalUrl**
+✅ Abertura instantânea (sem latência)  
+✅ Prevenção de duplicatas  
+✅ Funciona offline  
+❌ Maior consumo de memória  
+❌ Endpoint GET não é utilizado
+
+### Decisão Implementada
+**Opção 2** foi escolhida priorizando UX (zero latência) e prevenção de duplicatas,
+considerando que o escopo é limitado e o consumo de memória é aceitável.

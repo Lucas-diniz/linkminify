@@ -13,4 +13,5 @@
     <string name="error_timeout">Tempo de conexão esgotado. Verifique sua conexão e tente novamente.</string>
     <string name="error_not_found">Recurso não encontrado. Verifique o link e tente novamente.</string>
     <string name="error_unknown">Erro desconhecido. Tente novamente mais tarde ou entre em contato com o suporte.</string>
+    <string name="error_link_already_exists">Este link já existe. Você pode acessá-lo na sua lista de links ou criar um novo.</string>
 </resources>

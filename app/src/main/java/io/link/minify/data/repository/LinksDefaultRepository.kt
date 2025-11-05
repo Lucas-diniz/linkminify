@@ -5,8 +5,8 @@ import io.link.minify.data.sources.RemoteDataSource
 import io.link.minify.data.sources.model.CreateAliasRequest
 import io.link.minify.data.toDomainError
 import io.link.minify.domain.NetWorkResult
-import io.link.minify.domain.entity.Link
 import io.link.minify.domain.entity.MinifyLink
+import io.link.minify.domain.error.LinkError
 import io.link.minify.domain.repository.LinksRepository
 import kotlinx.coroutines.flow.Flow
 
@@ -19,23 +19,20 @@ class LinksDefaultRepository(
         return localDataSource.getResentLinks()
     }
 
-    override suspend fun shortenLink(url: String): NetWorkResult<MinifyLink> {
-        return try {
-            remoteDataSource.createAlias(CreateAliasRequest(url)).let {
-                NetWorkResult.Success(
-                    MinifyLink(
-                        link = Link(
-                            url = it.links.self
-                        ),
-                        alias = it.alias,
-                        shortUrl = it.links.short,
-                    )
-                )
-            }.also {
-                localDataSource.setResentLink(it.data)
-            }
-        } catch (throwable: Throwable) {
-            NetWorkResult.Error(throwable.toDomainError())
+    override suspend fun shortenLink(url: String): NetWorkResult<MinifyLink> = try {
+        if (localDataSource.verifyLinkExists(url)) {
+            NetWorkResult.Error(LinkError.AlreadyExists)
+        } else {
+            val apiResponse = remoteDataSource.createAlias(CreateAliasRequest(url))
+            val minifyLink = MinifyLink(
+                url = apiResponse.links.self,
+                alias = apiResponse.alias,
+                shortUrl = apiResponse.links.short
+            )
+            localDataSource.setResentLink(minifyLink)
+            NetWorkResult.Success(minifyLink)
         }
+    } catch (throwable: Throwable) {
+        NetWorkResult.Error(throwable.toDomainError())
     }
 }
