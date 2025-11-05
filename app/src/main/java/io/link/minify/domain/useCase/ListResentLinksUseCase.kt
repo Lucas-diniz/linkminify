@@ -10,7 +10,6 @@ class ListResentLinksUseCase(private val repository: LinksRepository) {
         return repository.listResentLinks().map { minifyLink ->
             minifyLink
                 .take(20)
-                .sortedByDescending { it.timestamp }
         }
     }
 }

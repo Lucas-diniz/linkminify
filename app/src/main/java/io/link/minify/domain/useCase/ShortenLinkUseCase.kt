@@ -7,7 +7,7 @@ import io.link.minify.isValidUrl
 
 class ShortenLinkUseCase(private val repository: LinksRepository) {
     suspend operator fun invoke(url: String): NetWorkResult<MinifyLink> {
-        url.isValidUrl().second?.let { NetWorkResult.Error(it) }
+        url.isValidUrl().second?.let { return NetWorkResult.Error(it) }
         return repository.shortenLink(url)
     }
 }

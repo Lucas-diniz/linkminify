@@ -19,7 +19,7 @@ val dataDi = module {
         )
     }
 
-    factory { LocalDataSource() }
+    single { LocalDataSource() }
 
     single { get<Retrofit>().create(RemoteDataSource::class.java) }
 

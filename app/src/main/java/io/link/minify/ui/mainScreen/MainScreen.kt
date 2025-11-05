@@ -24,6 +24,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import io.link.minify.getFormatTimestamp
 import io.link.minify.ui.components.EmptyState
@@ -39,15 +41,18 @@ fun MainScreen(mainScreenViewModel: MainScreenViewModel = koinViewModel()) {
 
     val uiState by mainScreenViewModel.uiState.collectAsStateWithLifecycle()
     val focusManager = LocalFocusManager.current
-    val context = LocalContext.current
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val context = LocalContext.current.applicationContext
 
-    LaunchedEffect(uiState.errorMessage) {
-        uiState.errorMessage?.let { errorResId ->
-            Toast.makeText(
-                context,
-                context.getString(errorResId),
-                Toast.LENGTH_LONG
-            ).show()
+    LaunchedEffect(uiState.message) {
+        uiState.message?.let { errorResId ->
+            if (lifecycleOwner.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
+                Toast.makeText(
+                    context,
+                    context.getString(errorResId),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
             mainScreenViewModel.clearErrorMessage()
         }
     }
