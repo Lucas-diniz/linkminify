@@ -30,6 +30,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import io.link.minify.R
 import io.link.minify.isValidUrl
 import io.link.minify.ui.theme.LinkMinifyTheme
 import io.link.minify.ui.toMessageRes
@@ -41,6 +42,9 @@ fun InputLink(
     modifier: Modifier = Modifier
 ) {
     var urlInput by remember { mutableStateOf("") }
+    val cdUrlInput = stringResource(R.string.cd_url_input)
+    val cdShortenButton = stringResource(R.string.cd_shorten_button)
+
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -55,14 +59,14 @@ fun InputLink(
                 .fillMaxWidth()
                 .testTag("url_input_field")
                 .semantics {
-                    contentDescription = "Enter the URL you want to shorten"
+                    contentDescription = cdUrlInput
                 },
-            label = { Text("Enter URL to shorten") },
-            placeholder = { Text("https://example.com/long-url") },
+            label = { Text(stringResource(R.string.input_url_label)) },
+            placeholder = { Text(stringResource(R.string.input_url_placeholder)) },
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = "Link icon"
+                    contentDescription = stringResource(R.string.cd_link_icon)
                 )
             },
             trailingIcon = {
@@ -102,13 +106,13 @@ fun InputLink(
                 .height(56.dp)
                 .testTag("shorten_button")
                 .semantics {
-                    contentDescription = "Shorten the URL button"
+                    contentDescription = cdShortenButton
                 },
             enabled = urlInput.isValidUrl().first && !isLoading,
             shape = RoundedCornerShape(12.dp)
         ) {
             Text(
-                text = if (isLoading) "Shortening..." else "Shorten Link",
+                text = if (isLoading) stringResource(R.string.button_shortening) else stringResource(R.string.button_shorten),
                 style = MaterialTheme.typography.titleMedium
             )
         }
@@ -123,6 +127,9 @@ private fun InputLinkStateless(
     isLoading: Boolean,
     modifier: Modifier = Modifier
 ) {
+    val cdUrlInput = stringResource(R.string.cd_url_input)
+    val cdShortenButton = stringResource(R.string.cd_shorten_button)
+
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -137,14 +144,14 @@ private fun InputLinkStateless(
                 .fillMaxWidth()
                 .testTag("url_input_field")
                 .semantics {
-                    contentDescription = "Enter the URL you want to shorten"
+                    contentDescription = cdUrlInput
                 },
-            label = { Text("Enter URL to shorten") },
-            placeholder = { Text("https://example.com/long-url") },
+            label = { Text(stringResource(R.string.input_url_label)) },
+            placeholder = { Text(stringResource(R.string.input_url_placeholder)) },
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = "Link icon"
+                    contentDescription = stringResource(R.string.cd_link_icon)
                 )
             },
             trailingIcon = {
@@ -184,13 +191,13 @@ private fun InputLinkStateless(
                 .height(56.dp)
                 .testTag("shorten_button")
                 .semantics {
-                    contentDescription = "Shorten the URL button"
+                    contentDescription = cdShortenButton
                 },
             enabled = urlInput.isValidUrl().first && !isLoading,
             shape = RoundedCornerShape(12.dp)
         ) {
             Text(
-                text = if (isLoading) "Shortening..." else "Shorten Link",
+                text = if (isLoading) stringResource(R.string.button_shortening) else stringResource(R.string.button_shorten),
                 style = MaterialTheme.typography.titleMedium
             )
         }

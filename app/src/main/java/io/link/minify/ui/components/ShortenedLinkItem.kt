@@ -16,9 +16,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import io.link.minify.R
 import io.link.minify.ui.theme.LinkMinifyTheme
 
 
@@ -60,7 +62,7 @@ fun ShortenedLinkItem(
             }
 
             Text(
-                text = "Original:",
+                text = stringResource(R.string.label_original),
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -83,7 +85,7 @@ fun ShortenedLinkItem(
             ) {
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = "Shortened:",
+                        text = stringResource(R.string.label_shortened),
                         style = MaterialTheme.typography.labelMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )

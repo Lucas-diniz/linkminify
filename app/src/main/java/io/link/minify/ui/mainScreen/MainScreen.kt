@@ -23,7 +23,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import io.link.minify.R
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -65,7 +67,7 @@ fun MainScreen(mainScreenViewModel: MainScreenViewModel = koinViewModel()) {
             TopAppBar(
                 title = {
                     Text(
-                        text = "Link Minify",
+                        text = stringResource(R.string.app_title),
                         modifier = Modifier.testTag("app_title")
                     )
                 },
@@ -104,7 +106,7 @@ fun MainScreen(mainScreenViewModel: MainScreenViewModel = koinViewModel()) {
                 if (uiState.listShortLinks.isNotEmpty()) {
                     item {
                         Text(
-                            text = "Recent Links",
+                            text = stringResource(R.string.recent_links_header),
                             style = MaterialTheme.typography.titleLarge,
                             color = MaterialTheme.colorScheme.onSurface,
                             modifier = Modifier
@@ -119,8 +121,8 @@ fun MainScreen(mainScreenViewModel: MainScreenViewModel = koinViewModel()) {
                 if (uiState.listShortLinks.isEmpty() && !uiState.isLoading) {
                     item {
                         EmptyState(
-                            title = "No shortened links yet",
-                            subtitle = "Enter a URL above to create your first short link",
+                            title = stringResource(R.string.empty_state_title),
+                            subtitle = stringResource(R.string.empty_state_subtitle),
                             modifier = Modifier
                                 .fillParentMaxSize()
                                 .padding(16.dp)
@@ -150,7 +152,7 @@ fun MainScreen(mainScreenViewModel: MainScreenViewModel = koinViewModel()) {
 
             LoadingOverlay(
                 isVisible = uiState.isLoading,
-                loadingMessage = "Loading, please wait",
+                loadingMessage = stringResource(R.string.loading_message),
                 modifier = Modifier.align(Alignment.Center)
             )
         }

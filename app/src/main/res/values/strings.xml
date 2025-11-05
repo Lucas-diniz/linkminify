@@ -19,4 +19,19 @@
     <string name="error_timeout">Tempo de conexão esgotado. Verifique sua conexão e tente novamente.</string>
     <string name="error_not_found">Recurso não encontrado. Verifique o link e tente novamente.</string>
     <string name="error_unknown">Erro desconhecido. Tente novamente mais tarde ou entre em contato com o suporte.</string>
+
+    <!-- UI LABELS AND MESSAGES -->
+    <string name="app_title">Link Minify</string>
+    <string name="recent_links_header">Links recentes</string>
+    <string name="empty_state_title">Ainda não há links encurtados</string>
+    <string name="empty_state_subtitle">Insira uma URL acima para criar seu primeiro link encurtado</string>
+    <string name="loading_message">Carregando, por favor aguarde</string>
+    <string name="input_url_label">Insira a URL para encurtar</string>
+    <string name="input_url_placeholder">https://exemplo.com/url-longa</string>
+    <string name="button_shorten">Encurtar</string>
+    <string name="button_shortening">Encurtando...</string>
+    <string name="label_original">Original:</string>
+    <string name="label_shortened">Encurtado:</string>
+    <string name="cd_url_input">Insira a URL que deseja encurtar</string>
+    <string name="cd_link_icon">Ícone de link</string>
 </resources>
