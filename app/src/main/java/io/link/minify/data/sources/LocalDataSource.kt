@@ -26,4 +26,8 @@ class LocalDataSource {
         currentList.add(0, minifyLink)
         _recentLinksStorage.value = currentList
     }
+
+    fun verifyLinkExists(url: String): Boolean {
+        return _recentLinksStorage.value.any { it.url == url }
+    }
 }
