@@ -10,4 +10,9 @@ sealed class NetWorkResult<out T> {
         if (this is Success) action(data)
         return this
     }
+
+    inline fun onError(action: (MinifyError) -> Unit): NetWorkResult<T> {
+        if (this is Error) action(error)
+        return this
+    }
 }

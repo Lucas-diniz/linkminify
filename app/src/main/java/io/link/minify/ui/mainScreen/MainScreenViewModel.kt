@@ -59,16 +59,12 @@ class MainScreenViewModel(
     }
 
     private fun shortenLinkResultHandler(result: NetWorkResult<MinifyLink>) {
-        when (result) {
-            is NetWorkResult.Success -> {
-                sendMessage(R.string.success_message)
-            }
-
-            is NetWorkResult.Error -> {
-                when (result.error) {
-                    is LinkError -> sendMessage(result.error.toMessageRes())
-                    is NetworkError -> sendMessage(result.error.toMessageRes())
-                }
+        result.onSuccess {
+            sendMessage(R.string.success_message)
+        }.onError { error ->
+            when (error) {
+                is LinkError -> sendMessage(error.toMessageRes())
+                is NetworkError -> sendMessage(error.toMessageRes())
             }
         }
     }
