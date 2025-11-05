@@ -43,7 +43,6 @@ fun InputLink(
 ) {
     var urlInput by remember { mutableStateOf("") }
     val cdUrlInput = stringResource(R.string.cd_url_input)
-    val cdShortenButton = stringResource(R.string.cd_shorten_button)
 
     Column(
         modifier = modifier
@@ -104,10 +103,7 @@ fun InputLink(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(56.dp)
-                .testTag("shorten_button")
-                .semantics {
-                    contentDescription = cdShortenButton
-                },
+                .testTag("shorten_button"),
             enabled = urlInput.isValidUrl().first && !isLoading,
             shape = RoundedCornerShape(12.dp)
         ) {
@@ -128,7 +124,6 @@ private fun InputLinkStateless(
     modifier: Modifier = Modifier
 ) {
     val cdUrlInput = stringResource(R.string.cd_url_input)
-    val cdShortenButton = stringResource(R.string.cd_shorten_button)
 
     Column(
         modifier = modifier
@@ -189,10 +184,7 @@ private fun InputLinkStateless(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(56.dp)
-                .testTag("shorten_button")
-                .semantics {
-                    contentDescription = cdShortenButton
-                },
+                .testTag("shorten_button"),
             enabled = urlInput.isValidUrl().first && !isLoading,
             shape = RoundedCornerShape(12.dp)
         ) {
