@@ -60,7 +60,7 @@ class MainScreenViewModel(
 
     private fun shortenLinkResultHandler(result: NetWorkResult<MinifyLink>) {
         when (result) {
-            is NetWorkResult.Success<*> -> {
+            is NetWorkResult.Success -> {
                 sendMessage(R.string.success_message)
             }
 

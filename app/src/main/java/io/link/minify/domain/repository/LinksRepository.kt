@@ -5,6 +5,8 @@ import io.link.minify.domain.entity.MinifyLink
 import kotlinx.coroutines.flow.Flow
 
 interface LinksRepository {
-    fun listResentLinks(): Flow<List<MinifyLink>>
-    suspend fun shortenLink(url: String): NetWorkResult<MinifyLink>
+    fun getResentLinks(): Flow<List<MinifyLink>>
+    fun verifyIfUrlExists(url: String): Boolean
+    fun saveMinifyLink(minifyLink: MinifyLink)
+    suspend fun createShortLink(url: String): NetWorkResult<MinifyLink>
 }

@@ -14,7 +14,7 @@ class LocalDataSource {
         return recentLinksStorage
     }
 
-    fun setResentLink(minifyLink: MinifyLink) {
+    fun saveMinifyLink(minifyLink: MinifyLink) {
         val currentList = _recentLinksStorage.value.toMutableList()
         currentList.add(0, minifyLink)
         _recentLinksStorage.value = currentList

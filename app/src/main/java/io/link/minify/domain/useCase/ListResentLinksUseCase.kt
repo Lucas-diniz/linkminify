@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.map
 
 class ListResentLinksUseCase(private val repository: LinksRepository) {
     operator fun invoke(): Flow<List<MinifyLink>> {
-        return repository.listResentLinks().map { minifyLink ->
+        return repository.getResentLinks().map { minifyLink ->
             minifyLink
                 .take(20)
         }
