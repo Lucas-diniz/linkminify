@@ -6,4 +6,5 @@ sealed class NetworkError : MinifyError {
     data object Timeout : NetworkError()
     data object NotFound : NetworkError()
     data object Unknown : NetworkError()
+    data object MissingFields : NetworkError()
 }

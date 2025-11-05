@@ -19,4 +19,5 @@ fun NetworkError.toMessageRes(): Int = when(this) {
     NetworkError.Timeout -> R.string.error_timeout
     NetworkError.NotFound -> R.string.error_not_found
     NetworkError.Unknown -> R.string.error_unknown
+    NetworkError.MissingFields -> R.string.missing_fields
 }

@@ -1,4 +1,6 @@
 <resources>
+    <string name="success_message">Pronto! Salvo com sucesso.</string>
+
     <!-- LINK ERRORS MESSAGE -->
     <string name="app_name">LinkMinify</string>
     <string name="url_is_empty">A URL está vazia</string>
@@ -6,6 +8,10 @@
     <string name="empty_host">Host ausente na URL</string>
     <string name="host_contains_spaces">O host contém espaços</string>
     <string name="malformed">URL malformada</string>
+    <string name="error_link_already_exists">Este link já existe. Você pode acessá-lo na sua lista de links ou criar um novo.</string>
+    <string name="list_error">Erro ao carregar lista</string>
+    <string name="missing_fields">Invalid API response: missing fields</string>
+    <string name="shortenLink_error">Erro inesperado, tente novamente</string>
 
     <!-- NETWORK ERRORS MESSAGE -->
     <string name="error_no_internet">Sem conexão com a internet. Verifique sua rede e tente novamente.</string>
@@ -13,5 +19,4 @@
     <string name="error_timeout">Tempo de conexão esgotado. Verifique sua conexão e tente novamente.</string>
     <string name="error_not_found">Recurso não encontrado. Verifique o link e tente novamente.</string>
     <string name="error_unknown">Erro desconhecido. Tente novamente mais tarde ou entre em contato com o suporte.</string>
-    <string name="error_link_already_exists">Este link já existe. Você pode acessá-lo na sua lista de links ou criar um novo.</string>
 </resources>

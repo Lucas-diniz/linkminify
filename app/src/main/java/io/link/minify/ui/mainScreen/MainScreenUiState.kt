@@ -7,5 +7,5 @@ data class MainScreenUiState(
     val listShortLinks: List<MinifyLink> = emptyList(),
     val isLoading: Boolean = true,
     val error: LinkError? = null,
-    val errorMessage: Int? = null
+    val message: Int? = null
 )
