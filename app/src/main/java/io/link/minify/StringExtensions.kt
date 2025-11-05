@@ -1,7 +1,10 @@
-package io.link.minify.core.extensions
+package io.link.minify
 
 import androidx.core.net.toUri
 import io.link.minify.domain.error.LinkError
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 const val HTTP = "http"
 const val HTTPS = "https"
@@ -46,4 +49,19 @@ fun String.isValidUrl(): Pair<Boolean, LinkError?> {
     } catch (_: Exception) {
         false to LinkError.Malformed
     }
+}
+
+/**
+ * Formats this Unix timestamp (milliseconds) into a human-readable string.
+ *
+ * Uses the device default locale and default time zone.
+ *
+ * @receiver Unix timestamp in milliseconds.
+ * @return Formatted date string using pattern "MMM dd, yyyy 'at' HH:mm" (example: "Nov 03, 2025 at 14:30").
+ *
+ * Note: Uses SimpleDateFormat which is not thread-safe — avoid sharing instances across threads.
+ */
+fun Long.getFormatTimestamp(): String {
+    val sdf = SimpleDateFormat("MMM dd, yyyy 'at' HH:mm", Locale.getDefault())
+    return sdf.format(Date(this))
 }
