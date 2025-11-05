@@ -1,5 +1,6 @@
 package io.link.minify.ui.mainScreen
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,13 +16,16 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import io.link.minify.getFormatTimestamp
 import io.link.minify.ui.components.EmptyState
 import io.link.minify.ui.components.InputLink
 import io.link.minify.ui.components.LoadingOverlay
@@ -35,6 +39,18 @@ fun MainScreen(mainScreenViewModel: MainScreenViewModel = koinViewModel()) {
 
     val uiState by mainScreenViewModel.uiState.collectAsStateWithLifecycle()
     val focusManager = LocalFocusManager.current
+    val context = LocalContext.current
+
+    LaunchedEffect(uiState.errorMessage) {
+        uiState.errorMessage?.let { errorResId ->
+            Toast.makeText(
+                context,
+                context.getString(errorResId),
+                Toast.LENGTH_LONG
+            ).show()
+            mainScreenViewModel.clearErrorMessage()
+        }
+    }
 
     Scaffold(
         modifier = Modifier
@@ -80,7 +96,6 @@ fun MainScreen(mainScreenViewModel: MainScreenViewModel = koinViewModel()) {
                     Spacer(modifier = Modifier.height(24.dp))
                 }
 
-                // List header
                 if (uiState.listShortLinks.isNotEmpty()) {
                     item {
                         Text(
@@ -96,7 +111,6 @@ fun MainScreen(mainScreenViewModel: MainScreenViewModel = koinViewModel()) {
                     }
                 }
 
-                // Empty state or links list
                 if (uiState.listShortLinks.isEmpty() && !uiState.isLoading) {
                     item {
                         EmptyState(
@@ -110,17 +124,13 @@ fun MainScreen(mainScreenViewModel: MainScreenViewModel = koinViewModel()) {
                 } else {
                     items(
                         items = uiState.listShortLinks,
-                        key = { it.link.id }
+                        key = { it.id }
                     ) { minifyLink ->
                         ShortenedLinkItem(
-                            originalUrl = minifyLink.link.url,
+                            originalUrl = minifyLink.url,
                             shortUrl = minifyLink.shortUrl,
-                            formattedTimestamp = DataCache.formatTimestamp(minifyLink.link.timestamp),
-                            clickCount = minifyLink.clickCount,
-                            linkId = minifyLink.link.id,
-                            onCopyClick = {
-                                // TODO: Implement copy to clipboard functionality
-                            },
+                            formattedTimestamp = minifyLink.timestamp.getFormatTimestamp(),
+                            linkId = minifyLink.alias,
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 16.dp, vertical = 6.dp)
@@ -138,7 +148,6 @@ fun MainScreen(mainScreenViewModel: MainScreenViewModel = koinViewModel()) {
                 loadingMessage = "Loading, please wait",
                 modifier = Modifier.align(Alignment.Center)
             )
-
         }
     }
 }

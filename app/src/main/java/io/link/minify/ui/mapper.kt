@@ -10,6 +10,7 @@ fun LinkError.toMessageRes(): Int = when(this) {
     LinkError.EmptyHost -> R.string.empty_host
     LinkError.HostContainsSpaces -> R.string.host_contains_spaces
     LinkError.Malformed -> R.string.malformed
+    LinkError.AlreadyExists -> R.string.error_link_already_exists
 }
 
 fun NetworkError.toMessageRes(): Int = when(this) {

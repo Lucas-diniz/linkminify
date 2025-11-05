@@ -20,23 +20,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.link.minify.ui.theme.LinkMinifyTheme
 
-/**
- * LoadingOverlay Component
- *
- * A reusable composable that displays a loading indicator overlay following the Single Responsibility Principle.
- * This component is responsible solely for displaying a loading state with proper accessibility support.
- *
- * SOLID Principles Applied:
- * - Single Responsibility: Handles only the display of loading state
- * - Open/Closed: Extensible through visibility parameter, closed for modification
- * - Liskov Substitution: Can be substituted anywhere a loading overlay is needed
- * - Interface Segregation: Accepts only the parameters it needs (visibility and description)
- * - Dependency Inversion: No dependencies on concrete implementations
- *
- * @param isVisible Whether the loading overlay should be visible
- * @param loadingMessage The accessibility message for screen readers
- * @param modifier Optional modifier for customization
- */
 @Composable
 fun LoadingOverlay(
     isVisible: Boolean,
@@ -74,7 +57,6 @@ fun LoadingOverlay(
 }
 
 // Preview Functions
-
 @Preview(
     name = "Loading Overlay - Visible",
     showBackground = true,
