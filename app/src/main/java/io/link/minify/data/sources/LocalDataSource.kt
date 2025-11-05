@@ -21,6 +21,6 @@ class LocalDataSource {
     }
 
     fun verifyLinkExists(url: String): Boolean {
-        return _recentLinksStorage.value.any { it.url == url }
+        return _recentLinksStorage.value.any { it.hasSameUrlAs(url) }
     }
 }

@@ -10,6 +10,7 @@ import io.link.minify.domain.error.LinkError
 import io.link.minify.domain.error.NetworkError
 import io.link.minify.domain.repository.LinksRepository
 import kotlinx.coroutines.flow.Flow
+import java.util.UUID
 
 class LinksDefaultRepository(
     private val localDataSource: LocalDataSource,
@@ -31,13 +32,23 @@ class LinksDefaultRepository(
             if (links?.self == null || links.short == null || alias == null) {
                 NetWorkResult.Error(NetworkError.MissingFields)
             } else {
-                val minifyLink = MinifyLink(
+                val minifyLinkResult = MinifyLink.create(
+                    id = UUID.randomUUID().toString(),
                     url = links.self,
                     alias = alias,
-                    shortUrl = links.short
+                    shortUrl = links.short,
+                    timestamp = System.currentTimeMillis()
                 )
-                localDataSource.setResentLink(minifyLink)
-                NetWorkResult.Success(minifyLink)
+
+                minifyLinkResult.fold(
+                    onSuccess = { minifyLink ->
+                        localDataSource.setResentLink(minifyLink)
+                        NetWorkResult.Success(minifyLink)
+                    },
+                    onFailure = { error ->
+                        NetWorkResult.Error(NetworkError.MissingFields)
+                    }
+                )
             }
         }
     } catch (throwable: Throwable) {
