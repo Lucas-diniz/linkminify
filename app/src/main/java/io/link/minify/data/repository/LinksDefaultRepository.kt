@@ -15,7 +15,7 @@ class LinksDefaultRepository(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource,
 ) : LinksRepository {
-    override fun getResentLinks(): Flow<List<MinifyLink>> = localDataSource.getResentLinks()
+    override fun getResentLinks(): Flow<List<MinifyLink>> = localDataSource.recentLinks
 
     override fun verifyIfUrlExists(url: String): Boolean = localDataSource.verifyLinkExists(url)
 

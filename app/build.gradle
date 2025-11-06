@@ -5,22 +5,22 @@ plugins {
 }
 
 android {
-    namespace 'io.link.minify'
-    compileSdk 36
+    namespace = 'io.link.minify'
+    compileSdk = 36
 
     defaultConfig {
-        applicationId "io.link.minify"
-        minSdk 27
-        targetSdk 36
-        versionCode 1
-        versionName "1.0"
+        applicationId = "io.link.minify"
+        minSdk = 27
+        targetSdk = 36
+        versionCode = 1
+        versionName = "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled = false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -28,17 +28,22 @@ android {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
-    kotlinOptions {
-        jvmTarget = '11'
-    }
     buildFeatures {
-        compose true
+        compose = true
     }
     packaging {
         resources {
-            excludes += '/META-INF/{AL2.0,LGPL2.1}'
-            excludes += '/META-INF/LICENSE.md'
-            excludes += '/META-INF/LICENSE-notice.md'
+            resources.excludes += [
+                '/META-INF/AL2.0',
+                '/META-INF/LGPL2.1',
+                '/META-INF/LICENSE.md',
+                '/META-INF/LICENSE-notice.md'
+            ]
+        }
+    }
+    kotlin {
+        jvmToolchain {
+            languageVersion.set(JavaLanguageVersion.of(11))
         }
     }
 }

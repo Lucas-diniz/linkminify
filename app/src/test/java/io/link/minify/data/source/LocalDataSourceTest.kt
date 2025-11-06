@@ -51,7 +51,7 @@ class LocalDataSourceTest {
     @Test
     fun testGetResentLinksShouldReturnEmptyListInitially(): Unit =
         runBlocking {
-            val result = localDataSource.getResentLinks().first()
+            val result = localDataSource.recentLinks.first()
 
             assertEquals(emptyList<MinifyLink>(), result)
         }
@@ -61,7 +61,7 @@ class LocalDataSourceTest {
         runBlocking {
             localDataSource.saveMinifyLink(link1)
 
-            val result = localDataSource.getResentLinks().first()
+            val result = localDataSource.recentLinks.first()
 
             assertEquals(1, result.size)
             assertEquals(link1, result[0])
@@ -73,7 +73,7 @@ class LocalDataSourceTest {
             localDataSource.saveMinifyLink(link1)
             localDataSource.saveMinifyLink(link2)
 
-            val result = localDataSource.getResentLinks().first()
+            val result = localDataSource.recentLinks.first()
 
             assertEquals(2, result.size)
             assertEquals(link2, result[0])
@@ -87,7 +87,7 @@ class LocalDataSourceTest {
             localDataSource.saveMinifyLink(link2)
             localDataSource.saveMinifyLink(link3)
 
-            val result = localDataSource.getResentLinks().first()
+            val result = localDataSource.recentLinks.first()
 
             assertEquals(3, result.size)
             assertEquals(link3, result[0])
@@ -98,12 +98,12 @@ class LocalDataSourceTest {
     @Test
     fun testSaveMinifyLinkShouldEmitNewValueToFlow(): Unit =
         runBlocking {
-            val initialResult = localDataSource.getResentLinks().first()
+            val initialResult = localDataSource.recentLinks.first()
             assertEquals(0, initialResult.size)
 
             localDataSource.saveMinifyLink(link1)
 
-            val updatedResult = localDataSource.getResentLinks().first()
+            val updatedResult = localDataSource.recentLinks.first()
             assertEquals(1, updatedResult.size)
             assertEquals(link1, updatedResult[0])
         }
@@ -174,8 +174,8 @@ class LocalDataSourceTest {
         runBlocking {
             localDataSource.saveMinifyLink(link1)
 
-            val result1 = localDataSource.getResentLinks().first()
-            val result2 = localDataSource.getResentLinks().first()
+            val result1 = localDataSource.recentLinks.first()
+            val result2 = localDataSource.recentLinks.first()
 
             assertEquals(result1, result2)
             assertEquals(1, result1.size)
@@ -185,10 +185,10 @@ class LocalDataSourceTest {
     fun testSaveMinifyLinkShouldNotModifyOriginalList(): Unit =
         runBlocking {
             localDataSource.saveMinifyLink(link1)
-            val firstResult = localDataSource.getResentLinks().first()
+            val firstResult = localDataSource.recentLinks.first()
 
             localDataSource.saveMinifyLink(link2)
-            val secondResult = localDataSource.getResentLinks().first()
+            val secondResult = localDataSource.recentLinks.first()
 
             assertEquals(1, firstResult.size)
             assertEquals(2, secondResult.size)
@@ -200,14 +200,14 @@ class LocalDataSourceTest {
             localDataSource.saveMinifyLink(link1)
             localDataSource.saveMinifyLink(link2)
 
-            val result = localDataSource.getResentLinks().first()
+            val result = localDataSource.recentLinks.first()
             assertEquals(2, result.size)
 
             localDataSource.saveMinifyLink(link3)
 
             assertEquals(2, result.size)
 
-            val newResult = localDataSource.getResentLinks().first()
+            val newResult = localDataSource.recentLinks.first()
             assertEquals(3, newResult.size)
         }
 
@@ -217,7 +217,7 @@ class LocalDataSourceTest {
             localDataSource.saveMinifyLink(link1)
             localDataSource.saveMinifyLink(link1)
 
-            val result = localDataSource.getResentLinks().first()
+            val result = localDataSource.recentLinks.first()
 
             assertEquals(2, result.size)
             assertEquals(link1, result[0])
@@ -255,17 +255,17 @@ class LocalDataSourceTest {
             var emissionCount = 0
             val emissions = mutableListOf<List<MinifyLink>>()
 
-            val initialValue = localDataSource.getResentLinks().first()
+            val initialValue = localDataSource.recentLinks.first()
             emissions.add(initialValue)
             emissionCount++
 
             localDataSource.saveMinifyLink(link1)
-            val afterFirst = localDataSource.getResentLinks().first()
+            val afterFirst = localDataSource.recentLinks.first()
             emissions.add(afterFirst)
             emissionCount++
 
             localDataSource.saveMinifyLink(link2)
-            val afterSecond = localDataSource.getResentLinks().first()
+            val afterSecond = localDataSource.recentLinks.first()
             emissions.add(afterSecond)
             emissionCount++
 

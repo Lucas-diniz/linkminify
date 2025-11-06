@@ -53,15 +53,13 @@ do [Guide to App Architecture](https://developer.android.com/topic/architecture)
 │   └── mapper (UI Models)
 ├── 📂 domain
 │   ├── usecase (Use Cases)
-│   ├── entiry (Domain models)
+│   ├── entity (Domain models)
 │   ├── repository (Repository interface)
 │   └── error (Custom exceptions)
 └── 📂 data
     ├── repository (Repository implementation)
     ├── source (Retrofit service)
-    │     └── dto (API models)
     └── mapper (UI Models)
-
 ```
 
 ## 🛠️ Tech Stack
@@ -104,14 +102,22 @@ do [Guide to App Architecture](https://developer.android.com/topic/architecture)
 **Opção 2** foi escolhida priorizando UX (zero latência) e prevenção de duplicatas,
 considerando que o escopo é limitado e o consumo de memória é aceitável.
 
+## Limitações Conhecidas
+
+**Sem persistência**: Links só existem em memória durante a sessão do app
+
+- Trade-off consciente para MVP: priorizou UX (zero latência) vs durabilidade
+- Em produção: implementar Room
 
 # Guia de Uso do ktlint
 
-Este projeto utiliza o **ktlint** para garantir a qualidade do código e manter um padrão consistente de formatação Kotlin.
+Este projeto utiliza o **ktlint** para garantir a qualidade do código e manter um padrão consistente de formatação
+Kotlin.
 
 ## Configuração
 
 O ktlint foi configurado com:
+
 - **Plugin**: `jlleitschuh/ktlint-gradle` versão 12.1.2
 - **Versão do ktlint**: 1.5.0
 - **Modo Android**: Habilitado
@@ -121,6 +127,7 @@ O ktlint foi configurado com:
 ### Configurações Personalizadas (.editorconfig)
 
 O arquivo `.editorconfig` define:
+
 - Max line length: 120 caracteres
 - Trailing commas: Habilitadas
 - Função Composable: Ignora regra de naming
@@ -138,6 +145,7 @@ Executa a análise estática sem modificar arquivos:
 ```
 
 Este comando verifica todos os source sets (main, test, androidTest) e gera relatórios em:
+
 - `/app/build/reports/ktlint/`
 
 ### 2. Auto-Correção de Code Smells
@@ -149,6 +157,7 @@ Corrige automaticamente os problemas que podem ser resolvidos:
 ```
 
 Este comando:
+
 - Remove imports não utilizados
 - Adiciona trailing commas
 - Corrige indentação
@@ -167,14 +176,15 @@ Os relatórios são gerados em dois formatos:
 Para desabilitar regras específicas em um arquivo, adicione no topo do arquivo:
 
 ```kotlin
-@file:Suppress("ktlint:standard:max-line-length")a
+@file:Suppress("ktlint:standard:max-line-length") a
 ```
 
 Ou para uma função/classe específica:
 
 ```kotlin
 @Suppress("ktlint:standard:function-naming")
-fun MyComposableFunction() { }
+fun MyComposableFunction() {
+}
 ```
 
 ## Regras Principais Verificadas
@@ -193,6 +203,7 @@ O ktlint verifica:
 ### Build falha após executar ktlintFormat
 
 Alguns problemas não podem ser auto-corrigidos e precisam de intervenção manual:
+
 - **backing-property-naming**: Propriedades backing devem ter propriedades públicas correspondentes
 - **max-line-length**: Linhas com mais de 120 caracteres precisam ser quebradas manualmente
 - **indent**: Problemas complexos de indentação em casos específicos

@@ -72,11 +72,11 @@ class LinksDefaultRepositoryTest {
     fun testGetResentLinksShouldDelegateToLocalDataSource(): Unit =
         runBlocking {
             val links = listOf(link1, link2)
-            every { localDataSource.getResentLinks() } returns flowOf(links)
+            every { localDataSource.recentLinks } returns flowOf(links)
 
             val result = linksDefaultRepository.getResentLinks().first()
 
-            verify(exactly = 1) { localDataSource.getResentLinks() }
+            verify(exactly = 1) { localDataSource.recentLinks }
             assertEquals(2, result.size)
             assertEquals(link1, result[0])
             assertEquals(link2, result[1])
@@ -85,11 +85,11 @@ class LinksDefaultRepositoryTest {
     @Test
     fun testGetResentLinksShouldReturnEmptyList(): Unit =
         runBlocking {
-            every { localDataSource.getResentLinks() } returns flowOf(emptyList())
+            every { localDataSource.recentLinks } returns flowOf(emptyList())
 
             val result = linksDefaultRepository.getResentLinks().first()
 
-            verify(exactly = 1) { localDataSource.getResentLinks() }
+            verify(exactly = 1) { localDataSource.recentLinks }
             assertEquals(emptyList<MinifyLink>(), result)
         }
 
