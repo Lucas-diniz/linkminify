@@ -21,8 +21,7 @@ const val HTTPS = "https"
  * 2. Parse to URI; on parse failure -> [LinkError.Malformed]
  * 3. Scheme must be "http" or "https" -> [LinkError.InvalidScheme]
  * 4. Host must be present -> [LinkError.EmptyHost]
- * 5. Host must not contain spaces -> [LinkError.HostContainsSpaces]
- * 6. Host must contain a dot (`'.'`) that is not the first or last character -> [LinkError.Malformed]
+ * 5. Host must contain a dot (`'.'`) that is not the first or last character -> [LinkError.Malformed]
  *
  * Examples:
  * - `https://example.com`.isValidUrl() -> (true, null)
