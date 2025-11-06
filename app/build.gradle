@@ -34,6 +34,13 @@ android {
     buildFeatures {
         compose true
     }
+    packaging {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+            excludes += '/META-INF/LICENSE.md'
+            excludes += '/META-INF/LICENSE-notice.md'
+        }
+    }
 }
 
 dependencies {
@@ -64,11 +71,14 @@ dependencies {
     // Testing - Unit & Instrumented
     testImplementation libs.junit
     testImplementation libs.mockk
+    testImplementation(libs.kotlinx.coroutine.test)
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core
     androidTestImplementation platform(libs.androidx.compose.bom)
     androidTestImplementation libs.androidx.ui.test.junit4
     androidTestImplementation libs.mockk.android
+    androidTestImplementation(libs.kotlinx.coroutine.test)
+
 
     // Debug-only tooling
     debugImplementation libs.androidx.ui.tooling

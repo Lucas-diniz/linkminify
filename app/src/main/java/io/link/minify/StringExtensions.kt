@@ -1,7 +1,7 @@
 package io.link.minify
 
-import androidx.core.net.toUri
 import io.link.minify.domain.error.LinkError
+import java.net.URI
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -32,13 +32,12 @@ fun String.isValidUrl(): Pair<Boolean, LinkError?> {
     val input = this.trim()
     if (input.isEmpty()) return false to LinkError.Empty
     return try {
-        val uri = input.toUri()
+        val uri = URI(input)
         val scheme = uri.scheme?.lowercase()
         val host = uri.host?.trim()
 
         if (scheme != HTTP && scheme != HTTPS) return false to LinkError.InvalidScheme
         if (host.isNullOrEmpty()) return false to LinkError.EmptyHost
-        if (host.contains(" ")) return false to LinkError.HostContainsSpaces
 
         val dotIndex = host.indexOf('.')
         if (dotIndex <= 0 || dotIndex >= host.length - 1) {

@@ -12,33 +12,39 @@ Aplicação Android que permite encurtar URLs e visualizar histórico de links r
 
 ## 🏗️ Arquitetura
 
-Este projeto utiliza **MVVM + Clean Architecture** seguindo as recomendações do [Guide to App Architecture](https://developer.android.com/topic/architecture) do Android.
+Este projeto utiliza **MVVM + Clean Architecture** seguindo as recomendações
+do [Guide to App Architecture](https://developer.android.com/topic/architecture) do Android.
 
 ### Por que essa escolha?
 
 **Separação de responsabilidades**
+
 - Camadas bem definidas (UI, Domain, Data)
 - UI reactiva desacoplada da lógica de negócio
 - Facilita manutenção e escalabilidade
 
 **Testabilidade**
+
 - Lógica de negócio testável sem dependências
 - ViewModels isolados com StateFlow
 - Casos de uso testáveis com mocks de repositório
 - Cobertura de testes unitários e instrumentados
 
 **Gerenciamento de Estado**
+
 - Single source of truth via StateFlow
 - Sobrevivência a mudanças de configuração (rotation)
 - Estados bem definidos (Idle, Loading, Success, Error)
 
 **Manutenibilidade**
+
 - Código organizado e previsível
 - Baixo acoplamento entre camadas
 - Facilita onboarding e code review
 - Preparado para evolução de requisitos
 
 ### Estrutura
+
 ```
 📦 com.linkminify
 ├── 📂 presentation
@@ -70,10 +76,10 @@ Este projeto utiliza **MVVM + Clean Architecture** seguindo as recomendações d
 ## ✅ Critérios Atendidos
 
 - ✅ Arquitetura com separação de conceitos
-- ❗ Testes unitários (ViewModels, UseCases, Repository)
-- ❗ Testes de UI (Espresso/Compose)
-- ❗ Gerenciamento de estado robusto
-- ❗ Código organizado sem code smells
+- ✅ Testes unitários (ViewModels, UseCases, Repository)
+- ✅ Testes de UI (Compose)
+- ✅ Gerenciamento de estado robusto
+- ✅ Código organizado sem code smells
 - ❗ Lint warnings zerados
 
 ## Trade-offs de Arquitetura
@@ -94,5 +100,6 @@ Este projeto utiliza **MVVM + Clean Architecture** seguindo as recomendações d
 ❌ Endpoint GET não é utilizado
 
 ### Decisão Implementada
+
 **Opção 2** foi escolhida priorizando UX (zero latência) e prevenção de duplicatas,
 considerando que o escopo é limitado e o consumo de memória é aceitável.

@@ -6,7 +6,6 @@
     <string name="url_is_empty">A URL está vazia</string>
     <string name="invalid_scheme">Esquema inválido — use http:// ou https://</string>
     <string name="empty_host">Host ausente na URL</string>
-    <string name="host_contains_spaces">O host contém espaços</string>
     <string name="malformed">URL malformada</string>
     <string name="error_link_already_exists">Este link já existe. Você pode acessá-lo na sua lista de links ou criar um novo.</string>
     <string name="list_error">Erro ao carregar lista</string>
