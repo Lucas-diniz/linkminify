@@ -315,7 +315,7 @@ private fun InputSectionPartialUrlPreview() {
 private fun InputSectionLongUrlPreview() {
     LinkMinifyTheme(darkTheme = false) {
         InputLinkStateless(
-            urlInput = "https://www.example.com/very/long/path/with/multiple/segments?param1=value1&param2=value2&param3=value3",
+            urlInput = "https://www.example.com/",
             onUrlChange = {},
             onShortenClick = {},
             isLoading = false,

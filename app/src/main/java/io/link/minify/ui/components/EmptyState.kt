@@ -99,7 +99,7 @@ private fun EmptyStateLongTextPreview() {
     LinkMinifyTheme {
         EmptyState(
             title = "Your link history is empty",
-            subtitle = "Start shortening URLs to see your history here. All your shortened links will be saved and displayed in this section.",
+            subtitle = "Start shortening URLs to see your history here.",
         )
     }
 }

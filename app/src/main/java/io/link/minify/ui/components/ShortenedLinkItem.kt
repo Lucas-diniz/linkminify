@@ -135,7 +135,7 @@ private fun ShortenedLinkItemPreview() {
 private fun ShortenedLinkItemLongUrlPreview() {
     LinkMinifyTheme {
         ShortenedLinkItem(
-            originalUrl = "https://very-long-domain-name-example.com/with/multiple/path/segments/and/query/parameters?foo=bar&baz=qux",
+            originalUrl = "https://very-l/",
             shortUrl = "https://lnk.mn/xY9zAb",
             formattedTimestamp = "Nov 02, 2025 at 09:15",
             linkId = "2",

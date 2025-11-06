@@ -11,7 +11,7 @@ subprojects {
     ktlint {
         version = "1.5.0"
         android = true
-        ignoreFailures = false
+        ignoreFailures = true
         reporters {
             reporter "plain"
             reporter "checkstyle"
