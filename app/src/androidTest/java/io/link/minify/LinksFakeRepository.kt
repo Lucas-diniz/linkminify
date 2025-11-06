@@ -4,15 +4,18 @@ import io.link.minify.domain.NetWorkResult
 import io.link.minify.domain.entity.MinifyLink
 import io.link.minify.domain.error.NetworkError
 import io.link.minify.domain.repository.LinksRepository
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.util.UUID
 
+@Suppress("ktlint:standard:function-naming")
 class LinksFakeRepository : LinksRepository {
     private val _links = MutableStateFlow<List<MinifyLink>>(emptyList())
 
     var shouldFailOnCreate = false
     var shouldReturnAlreadyExists = false
+    var createShortLinkDelayMs = 0L
 
     fun setLinks(links: List<MinifyLink>) {
         _links.value = links
@@ -39,6 +42,10 @@ class LinksFakeRepository : LinksRepository {
     }
 
     override suspend fun createShortLink(url: String): NetWorkResult<MinifyLink> {
+        if (createShortLinkDelayMs > 0) {
+            delay(createShortLinkDelayMs)
+        }
+
         if (shouldFailOnCreate) {
             return NetWorkResult.Error(NetworkError.Unknown)
         }

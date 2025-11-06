@@ -16,10 +16,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -31,17 +27,21 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.link.minify.R
+import io.link.minify.domain.error.LinkError
 import io.link.minify.isValidUrl
 import io.link.minify.ui.theme.LinkMinifyTheme
 import io.link.minify.ui.toMessageRes
 
 @Composable
 fun InputLink(
+    urlInput: String,
+    isUrlValid: Boolean,
+    urlValidationError: LinkError?,
+    onUrlChange: (String) -> Unit,
     onShortenClick: (String) -> Unit,
     isLoading: Boolean,
     modifier: Modifier = Modifier,
 ) {
-    var urlInput by remember { mutableStateOf("") }
     val cdUrlInput = stringResource(R.string.cd_url_input)
 
     Column(
@@ -54,7 +54,7 @@ fun InputLink(
     ) {
         OutlinedTextField(
             value = urlInput,
-            onValueChange = { urlInput = it },
+            onValueChange = onUrlChange,
             modifier =
                 Modifier
                     .fillMaxWidth()
@@ -71,22 +71,24 @@ fun InputLink(
                 )
             },
             trailingIcon = {
-                if (urlInput.isNotBlank() && !urlInput.isValidUrl().first) {
+                if (urlInput.isNotBlank() && !isUrlValid) {
                     Icon(
                         imageVector = Icons.Default.Warning,
-                        contentDescription = urlInput.isValidUrl().second.toString(),
+                        contentDescription = urlValidationError.toString(),
                         tint = MaterialTheme.colorScheme.error,
                     )
                 }
             },
-            isError = !urlInput.isValidUrl().first,
+            isError = urlInput.isNotBlank() && !isUrlValid,
             supportingText = {
-                urlInput.isValidUrl().second?.let {
-                    Text(
-                        text = stringResource(it.toMessageRes()),
-                        color = MaterialTheme.colorScheme.error,
-                        modifier = Modifier.testTag("url_error_text"),
-                    )
+                if (urlInput.isNotBlank() && !isUrlValid) {
+                    urlValidationError?.let {
+                        Text(
+                            text = stringResource(it.toMessageRes()),
+                            color = MaterialTheme.colorScheme.error,
+                            modifier = Modifier.testTag("url_error_text"),
+                        )
+                    }
                 }
             },
             singleLine = true,
@@ -108,7 +110,7 @@ fun InputLink(
                     .fillMaxWidth()
                     .height(56.dp)
                     .testTag("shorten_button"),
-            enabled = urlInput.isValidUrl().first && !isLoading,
+            enabled = isUrlValid && !isLoading,
             shape = RoundedCornerShape(12.dp),
         ) {
             Text(

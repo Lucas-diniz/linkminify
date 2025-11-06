@@ -9,6 +9,7 @@ import io.link.minify.domain.error.LinkError
 import io.link.minify.domain.error.NetworkError
 import io.link.minify.domain.useCase.ListResentLinksUseCase
 import io.link.minify.domain.useCase.ShortenLinkUseCase
+import io.link.minify.isValidUrl
 import io.link.minify.ui.toMessageRes
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -37,6 +38,11 @@ class MainScreenViewModel(
                 updateLoading(false)
             }
         }
+    }
+
+    fun updateUrlInput(url: String) {
+        val (isValid, error) = url.isValidUrl()
+        _uiState.update { it.copy(urlInput = url, isUrlValid = isValid, urlValidationError = error) }
     }
 
     fun clearErrorMessage() {

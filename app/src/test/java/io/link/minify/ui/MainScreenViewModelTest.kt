@@ -381,4 +381,72 @@ class MainScreenViewModelTest {
         )
         assertFalse(viewModel.uiState.value.isLoading)
     }
+
+    @Test
+    fun updateUrlInputWithEmptyUrl() {
+        mainScreenViewModel.updateUrlInput("")
+
+        coVerify(exactly = 1) { listResentLinksUseCase() }
+
+        assertEquals(
+            mainScreenViewModel.uiState.value.urlInput,
+            "",
+        )
+        assertFalse(mainScreenViewModel.uiState.value.isUrlValid)
+        assertEquals(
+            mainScreenViewModel.uiState.value.urlValidationError,
+            LinkError.Empty,
+        )
+    }
+
+    @Test
+    fun updateUrlInputWithValidUrl() {
+        mainScreenViewModel.updateUrlInput("https://www.google.com")
+
+        coVerify(exactly = 1) { listResentLinksUseCase() }
+
+        assertEquals(
+            mainScreenViewModel.uiState.value.urlInput,
+            "https://www.google.com",
+        )
+        assert(mainScreenViewModel.uiState.value.isUrlValid)
+        assertEquals(
+            mainScreenViewModel.uiState.value.urlValidationError,
+            null,
+        )
+    }
+
+    @Test
+    fun updateUrlInputWithInvalidScheme() {
+        mainScreenViewModel.updateUrlInput("ftp://example.com")
+
+        coVerify(exactly = 1) { listResentLinksUseCase() }
+
+        assertEquals(
+            mainScreenViewModel.uiState.value.urlInput,
+            "ftp://example.com",
+        )
+        assertFalse(mainScreenViewModel.uiState.value.isUrlValid)
+        assertEquals(
+            mainScreenViewModel.uiState.value.urlValidationError,
+            LinkError.InvalidScheme,
+        )
+    }
+
+    @Test
+    fun updateUrlInputWithMalformedUrl() {
+        mainScreenViewModel.updateUrlInput("https://example")
+
+        coVerify(exactly = 1) { listResentLinksUseCase() }
+
+        assertEquals(
+            mainScreenViewModel.uiState.value.urlInput,
+            "https://example",
+        )
+        assertFalse(mainScreenViewModel.uiState.value.isUrlValid)
+        assertEquals(
+            mainScreenViewModel.uiState.value.urlValidationError,
+            LinkError.Malformed,
+        )
+    }
 }

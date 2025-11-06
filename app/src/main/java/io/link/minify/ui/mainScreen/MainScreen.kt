@@ -94,6 +94,10 @@ fun MainScreen(mainScreenViewModel: MainScreenViewModel = koinViewModel()) {
             ) {
                 item {
                     InputLink(
+                        urlInput = uiState.urlInput,
+                        isUrlValid = uiState.isUrlValid,
+                        urlValidationError = uiState.urlValidationError,
+                        onUrlChange = mainScreenViewModel::updateUrlInput,
                         isLoading = uiState.isLoading,
                         onShortenClick = {
                             focusManager.clearFocus()
