@@ -10,9 +10,7 @@ class LocalDataSource {
     private val _recentLinksStorage = MutableStateFlow<List<MinifyLink>>(emptyList())
     private val recentLinksStorage: StateFlow<List<MinifyLink>> = _recentLinksStorage.asStateFlow()
 
-    fun getResentLinks(): Flow<List<MinifyLink>> {
-        return recentLinksStorage
-    }
+    fun getResentLinks(): Flow<List<MinifyLink>> = recentLinksStorage
 
     fun saveMinifyLink(minifyLink: MinifyLink) {
         val currentList = _recentLinksStorage.value.toMutableList()
@@ -20,7 +18,5 @@ class LocalDataSource {
         _recentLinksStorage.value = currentList
     }
 
-    fun verifyLinkExists(url: String): Boolean {
-        return _recentLinksStorage.value.any { it.hasSameUrlAs(url) }
-    }
+    fun verifyLinkExists(url: String): Boolean = _recentLinksStorage.value.any { it.hasSameUrlAs(url) }
 }

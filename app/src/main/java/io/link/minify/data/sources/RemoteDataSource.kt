@@ -7,6 +7,7 @@ import retrofit2.http.POST
 
 interface RemoteDataSource {
     @POST("api/alias")
-    suspend fun createAlias(@Body request: CreateAliasRequest): CreateAliasResponse
+    suspend fun createAlias(
+        @Body request: CreateAliasRequest,
+    ): CreateAliasResponse
 }
-

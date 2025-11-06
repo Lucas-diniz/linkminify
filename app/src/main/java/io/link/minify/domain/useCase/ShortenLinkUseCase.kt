@@ -6,9 +6,10 @@ import io.link.minify.domain.error.LinkError
 import io.link.minify.domain.repository.LinksRepository
 import io.link.minify.isValidUrl
 
-class ShortenLinkUseCase(private val repository: LinksRepository) {
+class ShortenLinkUseCase(
+    private val repository: LinksRepository,
+) {
     suspend operator fun invoke(url: String): NetWorkResult<MinifyLink> {
-
         url.isValidUrl().second?.let { validationError ->
             return NetWorkResult.Error(validationError)
         }

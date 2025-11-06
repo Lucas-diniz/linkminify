@@ -25,10 +25,10 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import io.link.minify.R
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import io.link.minify.R
 import io.link.minify.getFormatTimestamp
 import io.link.minify.ui.components.EmptyState
 import io.link.minify.ui.components.InputLink
@@ -36,11 +36,9 @@ import io.link.minify.ui.components.LoadingOverlay
 import io.link.minify.ui.components.ShortenedLinkItem
 import org.koin.androidx.compose.koinViewModel
 
-
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun MainScreen(mainScreenViewModel: MainScreenViewModel = koinViewModel()) {
-
     val uiState by mainScreenViewModel.uiState.collectAsStateWithLifecycle()
     val focusManager = LocalFocusManager.current
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -49,45 +47,50 @@ fun MainScreen(mainScreenViewModel: MainScreenViewModel = koinViewModel()) {
     LaunchedEffect(uiState.message) {
         uiState.message?.let { errorResId ->
             if (lifecycleOwner.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
-                Toast.makeText(
-                    context,
-                    context.getString(errorResId),
-                    Toast.LENGTH_LONG
-                ).show()
+                Toast
+                    .makeText(
+                        context,
+                        context.getString(errorResId),
+                        Toast.LENGTH_LONG,
+                    ).show()
             }
             mainScreenViewModel.clearErrorMessage()
         }
     }
 
     Scaffold(
-        modifier = Modifier
-            .fillMaxSize()
-            .testTag("link_shortener_screen"),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .testTag("link_shortener_screen"),
         topBar = {
             TopAppBar(
                 title = {
                     Text(
                         text = stringResource(R.string.app_title),
-                        modifier = Modifier.testTag("app_title")
+                        modifier = Modifier.testTag("app_title"),
                     )
                 },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                )
+                colors =
+                    TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer,
+                        titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    ),
             )
-        }
+        },
     ) { paddingValues ->
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues),
         ) {
             LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .testTag("links_list"),
-                horizontalAlignment = Alignment.CenterHorizontally
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .testTag("links_list"),
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 item {
                     InputLink(
@@ -109,10 +112,11 @@ fun MainScreen(mainScreenViewModel: MainScreenViewModel = koinViewModel()) {
                             text = stringResource(R.string.recent_links_header),
                             style = MaterialTheme.typography.titleLarge,
                             color = MaterialTheme.colorScheme.onSurface,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 16.dp)
-                                .testTag("recent_links_header")
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 16.dp)
+                                    .testTag("recent_links_header"),
                         )
                         Spacer(modifier = Modifier.height(12.dp))
                     }
@@ -123,24 +127,26 @@ fun MainScreen(mainScreenViewModel: MainScreenViewModel = koinViewModel()) {
                         EmptyState(
                             title = stringResource(R.string.empty_state_title),
                             subtitle = stringResource(R.string.empty_state_subtitle),
-                            modifier = Modifier
-                                .fillParentMaxSize()
-                                .padding(16.dp)
+                            modifier =
+                                Modifier
+                                    .fillParentMaxSize()
+                                    .padding(16.dp),
                         )
                     }
                 } else {
                     items(
                         items = uiState.listShortLinks,
-                        key = { it.id }
+                        key = { it.id },
                     ) { minifyLink ->
                         ShortenedLinkItem(
                             originalUrl = minifyLink.url,
                             shortUrl = minifyLink.shortUrl,
                             formattedTimestamp = minifyLink.timestamp.getFormatTimestamp(),
                             linkId = minifyLink.alias,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 16.dp, vertical = 6.dp)
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 16.dp, vertical = 6.dp),
                         )
                     }
                 }
@@ -153,7 +159,7 @@ fun MainScreen(mainScreenViewModel: MainScreenViewModel = koinViewModel()) {
             LoadingOverlay(
                 isVisible = uiState.isLoading,
                 loadingMessage = stringResource(R.string.loading_message),
-                modifier = Modifier.align(Alignment.Center)
+                modifier = Modifier.align(Alignment.Center),
             )
         }
     }

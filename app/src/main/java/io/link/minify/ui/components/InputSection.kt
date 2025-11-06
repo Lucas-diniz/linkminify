@@ -39,33 +39,35 @@ import io.link.minify.ui.toMessageRes
 fun InputLink(
     onShortenClick: (String) -> Unit,
     isLoading: Boolean,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     var urlInput by remember { mutableStateOf("") }
     val cdUrlInput = stringResource(R.string.cd_url_input)
 
     Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-            .testTag("input_section"),
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+                .testTag("input_section"),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         OutlinedTextField(
             value = urlInput,
             onValueChange = { urlInput = it },
-            modifier = Modifier
-                .fillMaxWidth()
-                .testTag("url_input_field")
-                .semantics {
-                    contentDescription = cdUrlInput
-                },
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .testTag("url_input_field")
+                    .semantics {
+                        contentDescription = cdUrlInput
+                    },
             label = { Text(stringResource(R.string.input_url_label)) },
             placeholder = { Text(stringResource(R.string.input_url_placeholder)) },
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = stringResource(R.string.cd_link_icon)
+                    contentDescription = stringResource(R.string.cd_link_icon),
                 )
             },
             trailingIcon = {
@@ -73,7 +75,7 @@ fun InputLink(
                     Icon(
                         imageVector = Icons.Default.Warning,
                         contentDescription = urlInput.isValidUrl().second.toString(),
-                        tint = MaterialTheme.colorScheme.error
+                        tint = MaterialTheme.colorScheme.error,
                     )
                 }
             },
@@ -83,33 +85,42 @@ fun InputLink(
                     Text(
                         text = stringResource(it.toMessageRes()),
                         color = MaterialTheme.colorScheme.error,
-                        modifier = Modifier.testTag("url_error_text")
+                        modifier = Modifier.testTag("url_error_text"),
                     )
                 }
             },
             singleLine = true,
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Uri,
-                imeAction = ImeAction.Done
-            ),
+            keyboardOptions =
+                KeyboardOptions(
+                    keyboardType = KeyboardType.Uri,
+                    imeAction = ImeAction.Done,
+                ),
             enabled = !isLoading,
-            shape = RoundedCornerShape(12.dp)
+            shape = RoundedCornerShape(12.dp),
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
             onClick = { onShortenClick(urlInput) },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(56.dp)
-                .testTag("shorten_button"),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .height(56.dp)
+                    .testTag("shorten_button"),
             enabled = urlInput.isValidUrl().first && !isLoading,
-            shape = RoundedCornerShape(12.dp)
+            shape = RoundedCornerShape(12.dp),
         ) {
             Text(
-                text = if (isLoading) stringResource(R.string.button_shortening) else stringResource(R.string.button_shorten),
-                style = MaterialTheme.typography.titleMedium
+                text =
+                    if (isLoading) {
+                        stringResource(
+                            R.string.button_shortening,
+                        )
+                    } else {
+                        stringResource(R.string.button_shorten)
+                    },
+                style = MaterialTheme.typography.titleMedium,
             )
         }
     }
@@ -121,32 +132,34 @@ private fun InputLinkStateless(
     onUrlChange: (String) -> Unit,
     onShortenClick: (String) -> Unit,
     isLoading: Boolean,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val cdUrlInput = stringResource(R.string.cd_url_input)
 
     Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-            .testTag("input_section"),
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+                .testTag("input_section"),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         OutlinedTextField(
             value = urlInput,
             onValueChange = onUrlChange,
-            modifier = Modifier
-                .fillMaxWidth()
-                .testTag("url_input_field")
-                .semantics {
-                    contentDescription = cdUrlInput
-                },
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .testTag("url_input_field")
+                    .semantics {
+                        contentDescription = cdUrlInput
+                    },
             label = { Text(stringResource(R.string.input_url_label)) },
             placeholder = { Text(stringResource(R.string.input_url_placeholder)) },
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = stringResource(R.string.cd_link_icon)
+                    contentDescription = stringResource(R.string.cd_link_icon),
                 )
             },
             trailingIcon = {
@@ -154,7 +167,7 @@ private fun InputLinkStateless(
                     Icon(
                         imageVector = Icons.Default.Warning,
                         contentDescription = urlInput.isValidUrl().second.toString(),
-                        tint = MaterialTheme.colorScheme.error
+                        tint = MaterialTheme.colorScheme.error,
                     )
                 }
             },
@@ -164,33 +177,42 @@ private fun InputLinkStateless(
                     Text(
                         text = "Please enter a valid URL starting with http:// or https://",
                         color = MaterialTheme.colorScheme.error,
-                        modifier = Modifier.testTag("url_error_text")
+                        modifier = Modifier.testTag("url_error_text"),
                     )
                 }
             },
             singleLine = true,
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Uri,
-                imeAction = ImeAction.Done
-            ),
+            keyboardOptions =
+                KeyboardOptions(
+                    keyboardType = KeyboardType.Uri,
+                    imeAction = ImeAction.Done,
+                ),
             enabled = !isLoading,
-            shape = RoundedCornerShape(12.dp)
+            shape = RoundedCornerShape(12.dp),
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
             onClick = { onShortenClick(urlInput) },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(56.dp)
-                .testTag("shorten_button"),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .height(56.dp)
+                    .testTag("shorten_button"),
             enabled = urlInput.isValidUrl().first && !isLoading,
-            shape = RoundedCornerShape(12.dp)
+            shape = RoundedCornerShape(12.dp),
         ) {
             Text(
-                text = if (isLoading) stringResource(R.string.button_shortening) else stringResource(R.string.button_shorten),
-                style = MaterialTheme.typography.titleMedium
+                text =
+                    if (isLoading) {
+                        stringResource(
+                            R.string.button_shortening,
+                        )
+                    } else {
+                        stringResource(R.string.button_shorten)
+                    },
+                style = MaterialTheme.typography.titleMedium,
             )
         }
     }
@@ -200,7 +222,7 @@ private fun InputLinkStateless(
 @Preview(
     name = "Empty State",
     group = "Input Section - Light Theme",
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 private fun InputSectionEmptyPreview() {
@@ -209,7 +231,7 @@ private fun InputSectionEmptyPreview() {
             urlInput = "",
             onUrlChange = {},
             onShortenClick = {},
-            isLoading = false
+            isLoading = false,
         )
     }
 }
@@ -217,7 +239,7 @@ private fun InputSectionEmptyPreview() {
 @Preview(
     name = "Valid URL - Ready",
     group = "Input Section - Light Theme",
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 private fun InputSectionValidUrlPreview() {
@@ -226,7 +248,7 @@ private fun InputSectionValidUrlPreview() {
             urlInput = "https://example.com/very/long/url/path",
             onUrlChange = {},
             onShortenClick = {},
-            isLoading = false
+            isLoading = false,
         )
     }
 }
@@ -234,7 +256,7 @@ private fun InputSectionValidUrlPreview() {
 @Preview(
     name = "Invalid URL - Error",
     group = "Input Section - Light Theme",
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 private fun InputSectionInvalidUrlPreview() {
@@ -243,7 +265,7 @@ private fun InputSectionInvalidUrlPreview() {
             urlInput = "not-a-valid-url",
             onUrlChange = {},
             onShortenClick = {},
-            isLoading = false
+            isLoading = false,
         )
     }
 }
@@ -251,7 +273,7 @@ private fun InputSectionInvalidUrlPreview() {
 @Preview(
     name = "Loading State",
     group = "Input Section - Light Theme",
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 private fun InputSectionLoadingPreview() {
@@ -260,7 +282,7 @@ private fun InputSectionLoadingPreview() {
             urlInput = "https://example.com/long-url",
             onUrlChange = {},
             onShortenClick = {},
-            isLoading = true
+            isLoading = true,
         )
     }
 }
@@ -268,7 +290,7 @@ private fun InputSectionLoadingPreview() {
 @Preview(
     name = "Partial URL - Error",
     group = "Input Section - Light Theme",
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 private fun InputSectionPartialUrlPreview() {
@@ -277,7 +299,7 @@ private fun InputSectionPartialUrlPreview() {
             urlInput = "http://",
             onUrlChange = {},
             onShortenClick = {},
-            isLoading = false
+            isLoading = false,
         )
     }
 }
@@ -285,7 +307,7 @@ private fun InputSectionPartialUrlPreview() {
 @Preview(
     name = "Long Valid URL",
     group = "Input Section - Light Theme",
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 private fun InputSectionLongUrlPreview() {
@@ -294,7 +316,7 @@ private fun InputSectionLongUrlPreview() {
             urlInput = "https://www.example.com/very/long/path/with/multiple/segments?param1=value1&param2=value2&param3=value3",
             onUrlChange = {},
             onShortenClick = {},
-            isLoading = false
+            isLoading = false,
         )
     }
 }

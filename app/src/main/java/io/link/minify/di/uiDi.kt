@@ -6,11 +6,12 @@ import io.link.minify.ui.mainScreen.MainScreenViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
-val uiDi = module {
-    viewModel {
-        MainScreenViewModel(
-            get<ListResentLinksUseCase>(),
-            get<ShortenLinkUseCase>()
-        )
+val uiDi =
+    module {
+        viewModel {
+            MainScreenViewModel(
+                get<ListResentLinksUseCase>(),
+                get<ShortenLinkUseCase>(),
+            )
+        }
     }
-}

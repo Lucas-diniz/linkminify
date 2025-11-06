@@ -7,7 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import io.link.minify.ui.mainScreen.MainScreen
 import io.link.minify.ui.theme.LinkMinifyTheme
 
-class MainActivity() : ComponentActivity() {
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

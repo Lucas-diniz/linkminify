@@ -1,8 +1,8 @@
 package io.link.minify.ui.mainScreen
 
-import io.link.minify.R
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import io.link.minify.R
 import io.link.minify.domain.NetWorkResult
 import io.link.minify.domain.entity.MinifyLink
 import io.link.minify.domain.error.LinkError
@@ -17,9 +17,8 @@ import kotlinx.coroutines.launch
 
 class MainScreenViewModel(
     private val listResentLinksUseCase: ListResentLinksUseCase,
-    private val shortenLinkUseCase: ShortenLinkUseCase
+    private val shortenLinkUseCase: ShortenLinkUseCase,
 ) : ViewModel() {
-
     private val _uiState = MutableStateFlow(MainScreenUiState())
     val uiState = _uiState.asStateFlow()
 
@@ -59,14 +58,15 @@ class MainScreenViewModel(
     }
 
     private fun shortenLinkResultHandler(result: NetWorkResult<MinifyLink>) {
-        result.onSuccess {
-            sendMessage(R.string.success_message)
-        }.onError { error ->
-            when (error) {
-                is LinkError -> sendMessage(error.toMessageRes())
-                is NetworkError -> sendMessage(error.toMessageRes())
+        result
+            .onSuccess {
+                sendMessage(R.string.success_message)
+            }.onError { error ->
+                when (error) {
+                    is LinkError -> sendMessage(error.toMessageRes())
+                    is NetworkError -> sendMessage(error.toMessageRes())
+                }
             }
-        }
     }
 
     private fun sendMessage(messageId: Int) {

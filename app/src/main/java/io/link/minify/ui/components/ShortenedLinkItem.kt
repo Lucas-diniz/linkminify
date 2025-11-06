@@ -23,48 +23,50 @@ import androidx.compose.ui.unit.dp
 import io.link.minify.R
 import io.link.minify.ui.theme.LinkMinifyTheme
 
-
 @Composable
 fun ShortenedLinkItem(
     originalUrl: String,
     shortUrl: String,
     formattedTimestamp: String,
     linkId: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val uriHandler = androidx.compose.ui.platform.LocalUriHandler.current
     Card(
-        modifier = modifier
-            .testTag("link_item_$linkId"),
+        modifier =
+            modifier
+                .testTag("link_item_$linkId"),
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant
-        ),
-        onClick = { uriHandler.openUri(originalUrl) }
+        colors =
+            CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceVariant,
+            ),
+        onClick = { uriHandler.openUri(originalUrl) },
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
                     text = formattedTimestamp,
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.testTag("link_timestamp_$linkId")
+                    modifier = Modifier.testTag("link_timestamp_$linkId"),
                 )
             }
 
             Text(
                 text = stringResource(R.string.label_original),
                 style = MaterialTheme.typography.labelMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
@@ -73,7 +75,7 @@ fun ShortenedLinkItem(
                 color = MaterialTheme.colorScheme.onSurface,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.testTag("original_url_$linkId")
+                modifier = Modifier.testTag("original_url_$linkId"),
             )
 
             Spacer(modifier = Modifier.height(12.dp))
@@ -81,13 +83,13 @@ fun ShortenedLinkItem(
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
                         text = stringResource(R.string.label_shortened),
                         style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
@@ -96,7 +98,7 @@ fun ShortenedLinkItem(
                         color = MaterialTheme.colorScheme.primary,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.testTag("short_url_$linkId")
+                        modifier = Modifier.testTag("short_url_$linkId"),
                     )
                 }
             }
@@ -107,7 +109,7 @@ fun ShortenedLinkItem(
 // Preview Functions
 @Preview(
     name = "Link Item - Standard",
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 private fun ShortenedLinkItemPreview() {
@@ -117,16 +119,17 @@ private fun ShortenedLinkItemPreview() {
             shortUrl = "https://lnk.mn/aB3dEf",
             formattedTimestamp = "Nov 03, 2025 at 14:30",
             linkId = "1",
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
         )
     }
 }
 
 @Preview(
     name = "Link Item - Long URL",
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 private fun ShortenedLinkItemLongUrlPreview() {
@@ -136,16 +139,17 @@ private fun ShortenedLinkItemLongUrlPreview() {
             shortUrl = "https://lnk.mn/xY9zAb",
             formattedTimestamp = "Nov 02, 2025 at 09:15",
             linkId = "2",
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
         )
     }
 }
 
 @Preview(
     name = "Link Item - Zero Clicks",
-    showBackground = true
+    showBackground = true,
 )
 @Composable
 private fun ShortenedLinkItemZeroClicksPreview() {
@@ -155,9 +159,10 @@ private fun ShortenedLinkItemZeroClicksPreview() {
             shortUrl = "https://lnk.mn/cD5eF7",
             formattedTimestamp = "Nov 03, 2025 at 16:00",
             linkId = "3",
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
         )
     }
 }

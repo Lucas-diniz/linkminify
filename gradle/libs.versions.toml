@@ -12,6 +12,8 @@ koin = "4.1.1"
 mockk = "1.14.6"
 retrofit = "3.0.0"
 okhttp = "5.2.1"
+kotlinx-coroutine = "1.8.1"
+ktlint = "12.1.2"
 
 [libraries]
 # AndroidX - Core
@@ -54,4 +56,5 @@ mockk-android = { group = "io.mockk", name = "mockk-android", version.ref = "moc
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 

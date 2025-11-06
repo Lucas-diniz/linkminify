@@ -6,7 +6,10 @@ import kotlinx.coroutines.flow.Flow
 
 interface LinksRepository {
     fun getResentLinks(): Flow<List<MinifyLink>>
+
     fun verifyIfUrlExists(url: String): Boolean
+
     fun saveMinifyLink(minifyLink: MinifyLink)
+
     suspend fun createShortLink(url: String): NetWorkResult<MinifyLink>
 }

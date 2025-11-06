@@ -24,32 +24,34 @@ import io.link.minify.ui.theme.LinkMinifyTheme
 fun LoadingOverlay(
     isVisible: Boolean,
     loadingMessage: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     AnimatedVisibility(
         visible = isVisible,
         enter = fadeIn(),
         exit = fadeOut(),
-        modifier = modifier
+        modifier = modifier,
     ) {
         Surface(
-            modifier = Modifier
-                .size(100.dp)
-                .testTag("loading_overlay"),
+            modifier =
+                Modifier
+                    .size(100.dp)
+                    .testTag("loading_overlay"),
             shape = RoundedCornerShape(12.dp),
             color = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f),
-            shadowElevation = 8.dp
+            shadowElevation = 8.dp,
         ) {
             Box(
                 contentAlignment = Alignment.Center,
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize(),
             ) {
                 CircularProgressIndicator(
-                    modifier = Modifier
-                        .size(48.dp)
-                        .semantics {
-                            contentDescription = loadingMessage
-                        }
+                    modifier =
+                        Modifier
+                            .size(48.dp)
+                            .semantics {
+                                contentDescription = loadingMessage
+                            },
                 )
             }
         }
@@ -61,7 +63,7 @@ fun LoadingOverlay(
     name = "Loading Overlay - Visible",
     showBackground = true,
     widthDp = 360,
-    heightDp = 640
+    heightDp = 640,
 )
 @Composable
 private fun LoadingOverlayVisiblePreview() {
@@ -70,7 +72,7 @@ private fun LoadingOverlayVisiblePreview() {
             LoadingOverlay(
                 isVisible = true,
                 loadingMessage = "Loading, please wait",
-                modifier = Modifier.align(Alignment.Center)
+                modifier = Modifier.align(Alignment.Center),
             )
         }
     }
@@ -80,7 +82,7 @@ private fun LoadingOverlayVisiblePreview() {
     name = "Loading Overlay - Hidden",
     showBackground = true,
     widthDp = 360,
-    heightDp = 640
+    heightDp = 640,
 )
 @Composable
 private fun LoadingOverlayHiddenPreview() {
@@ -89,7 +91,7 @@ private fun LoadingOverlayHiddenPreview() {
             LoadingOverlay(
                 isVisible = false,
                 loadingMessage = "Loading, please wait",
-                modifier = Modifier.align(Alignment.Center)
+                modifier = Modifier.align(Alignment.Center),
             )
         }
     }
@@ -99,7 +101,7 @@ private fun LoadingOverlayHiddenPreview() {
     name = "Loading Overlay - Custom Message",
     showBackground = true,
     widthDp = 360,
-    heightDp = 640
+    heightDp = 640,
 )
 @Composable
 private fun LoadingOverlayCustomMessagePreview() {
@@ -108,7 +110,7 @@ private fun LoadingOverlayCustomMessagePreview() {
             LoadingOverlay(
                 isVisible = true,
                 loadingMessage = "Shortening your URL, please wait",
-                modifier = Modifier.align(Alignment.Center)
+                modifier = Modifier.align(Alignment.Center),
             )
         }
     }

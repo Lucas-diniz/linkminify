@@ -17,10 +17,9 @@ data class MinifyLink private constructor(
     val url: String,
     val alias: String,
     val shortUrl: String,
-    val timestamp: Long
+    val timestamp: Long,
 ) {
     companion object {
-
         private const val ID_CANNOT_BE_BLANK = "ID cannot be blank"
         private const val URL_CANNOT_BE_BLANK = "URL cannot be blank"
         private const val ALIAS_CANNOT_BE_BLANK = "Alias cannot be blank"
@@ -32,9 +31,9 @@ data class MinifyLink private constructor(
             url: String,
             alias: String,
             shortUrl: String,
-            timestamp: Long
-        ): Result<MinifyLink> {
-            return runCatching {
+            timestamp: Long,
+        ): Result<MinifyLink> =
+            runCatching {
                 require(id.isNotBlank()) { ID_CANNOT_BE_BLANK }
                 require(url.isNotBlank()) { URL_CANNOT_BE_BLANK }
                 require(alias.isNotBlank()) { ALIAS_CANNOT_BE_BLANK }
@@ -46,13 +45,10 @@ data class MinifyLink private constructor(
                     url = url,
                     alias = alias,
                     shortUrl = shortUrl,
-                    timestamp = timestamp
+                    timestamp = timestamp,
                 )
             }
-        }
     }
 
-    fun hasSameUrlAs(otherUrl: String): Boolean {
-        return url.trim().equals(otherUrl.trim(), ignoreCase = true)
-    }
+    fun hasSameUrlAs(otherUrl: String): Boolean = url.trim().equals(otherUrl.trim(), ignoreCase = true)
 }

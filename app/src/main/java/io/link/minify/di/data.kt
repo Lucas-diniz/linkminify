@@ -10,30 +10,33 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-val dataDi = module {
+val dataDi =
+    module {
 
-    single<LinksRepository> {
-        LinksDefaultRepository(
-            get<LocalDataSource>(),
-            get<RemoteDataSource>()
-        )
-    }
-
-    single { LocalDataSource() }
-
-    single { get<Retrofit>().create(RemoteDataSource::class.java) }
-
-    single {
-        Retrofit.Builder()
-            .baseUrl("https://url-shortener-server.onrender.com/")
-            .client(
-                OkHttpClient.Builder()
-                    .addInterceptor(HttpLoggingInterceptor().also {
-                        it.setLevel(HttpLoggingInterceptor.Level.BASIC)
-                    })
-                    .build()
+        single<LinksRepository> {
+            LinksDefaultRepository(
+                get<LocalDataSource>(),
+                get<RemoteDataSource>(),
             )
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        }
+
+        single { LocalDataSource() }
+
+        single { get<Retrofit>().create(RemoteDataSource::class.java) }
+
+        single {
+            Retrofit
+                .Builder()
+                .baseUrl("https://url-shortener-server.onrender.com/")
+                .client(
+                    OkHttpClient
+                        .Builder()
+                        .addInterceptor(
+                            HttpLoggingInterceptor().also {
+                                it.setLevel(HttpLoggingInterceptor.Level.BASIC)
+                            },
+                        ).build(),
+                ).addConverterFactory(GsonConverterFactory.create())
+                .build()
+        }
     }
-}

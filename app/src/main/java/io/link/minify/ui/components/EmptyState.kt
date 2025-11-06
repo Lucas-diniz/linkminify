@@ -23,18 +23,18 @@ import io.link.minify.ui.theme.LinkMinifyTheme
 fun EmptyState(
     title: String,
     subtitle: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier.testTag("empty_state"),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
     ) {
         Icon(
             imageVector = Icons.Default.Email,
             contentDescription = null,
             modifier = Modifier.size(80.dp),
-            tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
+            tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
         )
         Spacer(modifier = Modifier.height(16.dp))
         Text(
@@ -42,7 +42,7 @@ fun EmptyState(
             style = MaterialTheme.typography.titleLarge,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
-            modifier = Modifier.testTag("empty_state_title")
+            modifier = Modifier.testTag("empty_state_title"),
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
@@ -50,7 +50,7 @@ fun EmptyState(
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
             textAlign = TextAlign.Center,
-            modifier = Modifier.testTag("empty_state_subtitle")
+            modifier = Modifier.testTag("empty_state_subtitle"),
         )
     }
 }
@@ -60,14 +60,14 @@ fun EmptyState(
     name = "Empty State - Default",
     showBackground = true,
     widthDp = 360,
-    heightDp = 640
+    heightDp = 640,
 )
 @Composable
 private fun EmptyStatePreview() {
     LinkMinifyTheme {
         EmptyState(
             title = "No shortened links yet",
-            subtitle = "Enter a URL above to create your first short link"
+            subtitle = "Enter a URL above to create your first short link",
         )
     }
 }
@@ -76,14 +76,14 @@ private fun EmptyStatePreview() {
     name = "Empty State - Custom Message",
     showBackground = true,
     widthDp = 360,
-    heightDp = 640
+    heightDp = 640,
 )
 @Composable
 private fun EmptyStateCustomPreview() {
     LinkMinifyTheme {
         EmptyState(
             title = "No results found",
-            subtitle = "Try adjusting your filters or create a new link"
+            subtitle = "Try adjusting your filters or create a new link",
         )
     }
 }
@@ -92,14 +92,14 @@ private fun EmptyStateCustomPreview() {
     name = "Empty State - Long Text",
     showBackground = true,
     widthDp = 360,
-    heightDp = 640
+    heightDp = 640,
 )
 @Composable
 private fun EmptyStateLongTextPreview() {
     LinkMinifyTheme {
         EmptyState(
             title = "Your link history is empty",
-            subtitle = "Start shortening URLs to see your history here. All your shortened links will be saved and displayed in this section."
+            subtitle = "Start shortening URLs to see your history here. All your shortened links will be saved and displayed in this section.",
         )
     }
 }
